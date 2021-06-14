@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <title>Registrarse</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <!-- Mis estilos CSS -->
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+
+    <header class="container d-flex py-2">
+        <p class="m-0 p-0 bg-danger text-white">Logo</p>
+        <div class="ml-auto d-flex">
+            <button class="btn btn-success mr-3">Login</button>
+            <button class="btn btn-secondary mr-3">Registro</button>
+            <button class="btn btn-primary mr-3">Carrito</button>
+            <!-- <p class="m-0 mr-5">login | registro</p>
+            <p class="m-0">Carrito</p> -->
+        </div>
+    </header>
+
+    <nav class="navbar navbar-expand-md navbar-light bg-light">
+        <div class="container">
+
+            <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse"
+                data-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="collapsibleNavId">
+                <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="./index.html">Inicio</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">Categorias</a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownId">
+                            <a class="dropdown-item" href="#?producto1">Producto 1</a>
+                            <a class="dropdown-item" href="#?producto2">Producto 2</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="">Acerca de</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="">Contacto</a>
+                    </li>
+                    <!-- PARA ADMINS/MODERADORES -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="">Agregar producto</a>
+                    </li>
+
+                </ul>
+                <form action="./resultadosBusqueda.html" method="GET" class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2" type="text" placeholder="Buscar producto...">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscador</button>
+                </form>
+            </div>
+
+        </div>
+    </nav>
+
+    <!-- LOGIN -->
+    <main class="container my-5">
+        <div class="row">
+
+            <!-- TITULO -->
+            <div class="col-12 mb-3">
+                <h2 class="text-uppercase text-center display-4">Acceder a la web</h2>
+            </div>
+
+            <!-- FORMULARIO -->
+            <form class="col-md-8 mx-auto">
+                
+                <!-- EMAIL -->
+                <div class="form-group row ">
+                    <label for="email" class="col-4 col-form-label text-right">Email:</label>
+                    <div class="col-8 col-lg-6">
+                        <input type="text" class="form-control" id="email" name="email">
+                    </div>
+                </div>
+
+                <!-- USUARIO -->
+                <div class="form-group row ">
+                    <label for="usuario" class="col-4 col-form-label text-right">Usuario:</label>
+                    <div class="col-8 col-lg-6">
+                        <input type="text" class="form-control" id="usuario" name="usuario">
+                    </div>
+                </div>
+
+                <!-- PASSWORD -->
+                <div class="form-group row ">
+                    <label for="password" class="col-4 col-form-label text-right">Password:</label>
+                    <div class="col-8 col-lg-6">
+                        <input type="password" class="form-control" id="password" name="password">
+                    </div>
+                </div>
+
+                <!-- PASSWORD REPEAT -->
+                <div class="form-group row ">
+                    <label for="passwordRepeat" class="col-4 col-form-label text-right">Repetir Password:</label>
+                    <div class="col-8 col-lg-6">
+                        <input type="password" class="form-control" id="passwordRepeat" name="passwordRepeat">
+                    </div>
+                </div>
+                
+                <!-- BOTONES -->
+                <div class="form-group row mt-4">
+                    <div class="col-4 col-md-4 col-lg-3 offset-4 offset-lg-4">    
+                        <button class="btn btn-success btn-block text-uppercase">Registrarse</button>
+                    </div>
+                </div>
+                
+            </form>
+
+        </div>
+    </main>
+
+    <footer class="bg-light p-3">
+        <div class="d-flex container justify-content-center">
+            <p class="p-0 m-0">NombreDeLaEmpresa</p>
+            <p class="p-0 m-0 mx-5">Copyright</p>
+            <p class="p-0 m-0"> | Saul Zarate</p>
+        </div>
+    </footer>
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
