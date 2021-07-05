@@ -1,0 +1,49 @@
+.nav-logo{
+    font-size: 1.5em;
+}
+
+.nav-link{
+    font-size: 1.1em;
+    margin: 0 5px;
+}
+
+textarea{
+    resize: none;
+}
+
+a{
+    text-decoration: none !important;
+}
+
+.card-body-3-productos-home{
+    text-align: center;
+}
+
+.card-body-3-productos-home h4{
+    padding-bottom: 5px;
+}
+
+.card-img-3-producto-home{
+    overflow: hidden;
+}
+
+.card-img-3-producto-home img {
+    height: 280px;
+    min-width: 280px;
+}
+
+.card-img-producto-home{
+    overflow: hidden;
+}
+
+.card-img-producto-home img{
+    height: 200px;
+    min-width: 200px;
+}
+
+.card-body-productos-home{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
