@@ -22,8 +22,8 @@
                         >
                     </div>
                     <div class="card-body card-body-3-productos-home">
-                        <h4 class="card-title text-truncate">{{ producto.titulo.title }}</h4>
-                        <p class="card-text ">{{ producto.descripcion }}</p>
+                        <h4 class="card-title text-truncate">{{ producto.titulo.title|truncatechars:25 }}</h4>
+                        <p class="card-text ">{{ producto.descripcion|truncatechars:70 }}</p>
                         <a href="{% url 'SITIO:producto_show' producto.id %}" class="btn btn-success btn-block">Ver</a>
                     </div>
                 </div>
@@ -50,8 +50,8 @@
                         alt="ultimo producto 1"
                         >
                         <div class="card-body text-center">
-                            <h4 class="card-title">{{ producto.titulo.title }}</h4>
-                            <p class="card-text ">{{ producto.descripcion.capitalize }}</p>
+                            <h4 class="card-title">{{ producto.titulo.title|truncatechars:28 }}</h4>
+                            <p class="card-text ">{{ producto.descripcion.capitalize|truncatechars:50 }}</p>
                             <a href="{% url 'SITIO:producto_show' producto.id %}" class="btn btn-success btn-block">Ver</a>
                         </div>
                     </div>
