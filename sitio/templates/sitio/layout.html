@@ -92,8 +92,8 @@
                     {% endif %}
 
                 </ul>
-                <form action="./resultadosBusqueda.html" method="GET" class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="text" placeholder="Buscar producto...">
+                <form action="{% url 'SITIO:producto_search' %}" method="GET" class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2" name="texto" type="text" placeholder="Buscar producto...">
                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscador</button>
                 </form>
             </div>

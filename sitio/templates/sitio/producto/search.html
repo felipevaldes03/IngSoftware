@@ -4,7 +4,7 @@
 <section class="row mt-5">
 
     <!-- Titulo -->
-    <div class="col-12 mb-4">
+    <div class="col-12 mb-4 busqueda-content__titulo">
         {% if categoria %}
         <h2 class="display-4 text-center text-capitalize ">
             {{ titulo_seccion }}
@@ -13,6 +13,16 @@
             </strong>
         </h2>
         {% endif %}
+
+        {% if texto_buscado %}
+        <h2 class="display-4 text-center text-capitalize ">
+            {{ titulo_seccion }}
+            <strong>
+                "{{ texto_buscado }}"
+            </strong>
+        </h2>
+        {% endif %}
+
         <!-- <h2 class="display-4 text-center text-capitalize ">Listado de productos "Input busqueda"</h2>
         <h2 class="display-4 text-center text-capitalize ">O Listado de productos por categoria</h2> -->
     </div>
