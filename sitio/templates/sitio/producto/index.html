@@ -4,6 +4,7 @@
 
     <!-- ULTIMOS 3 PRODUCTOS -->
     <section class="row">
+
         <!-- Titulo -->
         <div class="col-12 mb-4 ">
             <h1 class="display-4 text-center">Ultimos Productos</h1>
@@ -11,7 +12,7 @@
 
         <!-- PRODUCTOS -->
         {% for producto in productos_top3 %}
-            <div class="col-12 col-sm-6 col-md-4">
+            <div class="col-12 col-sm-6 col-md-4 mb-3">
                 <div class="card card-img-3-producto-home">
                     <div class=" h-100 ">
                         <!-- { { producto.imagen } } -->
@@ -22,8 +23,8 @@
                         >
                     </div>
                     <div class="card-body card-body-3-productos-home">
-                        <h4 class="card-title text-truncate">{{ producto.titulo.title|truncatechars:25 }}</h4>
-                        <p class="card-text ">{{ producto.descripcion|truncatechars:70 }}</p>
+                        <h4 class="card-title text-truncate">{{ producto.titulo.title.title|truncatechars:25 }}</h4>
+                        <p class="card-text ">{{ producto.descripcion.capitalize|truncatechars:70 }}</p>
                         <a href="{% url 'SITIO:producto_show' producto.id %}" class="btn btn-success btn-block">Ver</a>
                     </div>
                 </div>

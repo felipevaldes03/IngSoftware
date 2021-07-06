@@ -22,9 +22,6 @@
             </strong>
         </h2>
         {% endif %}
-
-        <!-- <h2 class="display-4 text-center text-capitalize ">Listado de productos "Input busqueda"</h2>
-        <h2 class="display-4 text-center text-capitalize ">O Listado de productos por categoria</h2> -->
     </div>
 
     <!-- Productos -->
@@ -39,7 +36,7 @@
                     alt="ultimo producto 1"
                     >
                     <div class="card-body text-center">
-                        <h4 class="card-title">{{ producto.titulo.title }}</h4>
+                        <h4 class="card-title">{{ producto.titulo.title|truncatechars:30 }}</h4>
                         <p class="card-text ">{{ producto.descripcion.capitalize|truncatechars:50 }}</p>
                         <a href="{% url 'SITIO:producto_show' producto.id %}" class="btn btn-success btn-block">Ver</a>
                     </div>

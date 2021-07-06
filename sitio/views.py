@@ -1,3 +1,4 @@
+from sitio.forms import FormProducto
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.http.response import HttpResponse, HttpResponseRedirect
@@ -17,8 +18,24 @@ def producto_index(request):
     })
 
 # PARA ADMINS/MODERADORES
-def producto_agregar(request):
-    pass
+def producto_create(request):
+    categorias = Categoria.objects.all()
+    if request.method == "POST":
+        categoria_del_producto = Categoria.objects.get(id=request.POST["categoria"])
+        form = FormProducto(request.POST, request.FILES, instance=Producto(imagen=request.FILES['imagen'], categoria=categoria_del_producto))   
+        if form.is_valid():
+            #return HttpResponse('Los campos fueron validados y aceptados!!! ' + str(categoria_del_producto))
+            form.save()
+            return redirect("SITIO:producto_index")
+        else:
+            return render(request, 'sitio/producto/create.html', {
+                'categorias' : categorias,
+                'error_message' : 'Ingreso un campo incorrecto, vuelva a intentar'
+            })
+    else:
+        return render(request, 'sitio/producto/create.html', {
+            'categorias' : categorias
+        })
 
 def producto_show(request, producto_id):
     producto = Producto.objects.get(id=producto_id)
@@ -28,7 +45,7 @@ def producto_show(request, producto_id):
         'producto' : producto
     })
 
-def producto_editar(request, producto_id):
+def producto_edit(request, producto_id):
     return HttpResponse('Editar Producto con id: ' + str(producto_id))
 
 def producto_delete(request, producto_id):

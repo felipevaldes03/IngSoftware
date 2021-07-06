@@ -87,7 +87,7 @@
                     <!-- PARA ADMINS/MODERADORES -->
                     {% if user.is_authenticated %}
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Agregar producto</a>
+                            <a class="nav-link" href="{% url 'SITIO:producto_create' %}">Agregar producto</a>
                         </li>
                     {% endif %}
 

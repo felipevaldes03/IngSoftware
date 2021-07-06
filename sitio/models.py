@@ -11,9 +11,10 @@ class Categoria(models.Model):
 
 class Producto(models.Model):
     titulo = models.CharField(max_length=30, null=False)
-    imagen = models.CharField(max_length=200)
+    # Imagen
+    imagen = models.FileField(upload_to='imagenes/productos/')
     descripcion = models.CharField(max_length=100, null=False)
-    precio = models.FloatField(null=False)
+    precio = models.DecimalField(null=False, max_digits=8, decimal_places=2)
     # FK
     categoria = models.ForeignKey(Categoria,on_delete=models.CASCADE, related_name="productos")
 
