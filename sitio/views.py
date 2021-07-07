@@ -128,12 +128,26 @@ def carrito_save(request):
     else:
         return redirect("SITIO:producto_index")
 
+def carrito_clean(request):
+    usuario_logeado = User.objects.get(username=request.user)
+    carrito = Carrito.objects.get(usuario=usuario_logeado.id)
+    carrito.items.all().delete()
+    carrito.total = 0
+    carrito.save()
+    #return HttpResponse(f'Carrito: id({carrito.id}) ${carrito.total} | Usuario: id({usuario_logeado.id}) {usuario_logeado.username} | items_carrito: {carrito.items.all().count()}')
+    return redirect('SITIO:carrito_index')
+
 def item_carrito_delete(request, item_carrito_id):
     item_carrito = Carrito_item.objects.get(id=item_carrito_id)
     carrito = item_carrito.carrito
-    precio_item = item_carrito.producto.precio
     
-    carrito.total = carrito.total - precio_item
+    # Vuelvo a calcular el precio del carrito
+    nuevo_precio_Carrito = 0 - item_carrito.producto.precio
+    for item in carrito.items.all():
+        nuevo_precio_Carrito += item.producto.precio
+
+    # Realizo los cambios en la base de datos
+    carrito.total = nuevo_precio_Carrito
     item_carrito.delete()
     carrito.save()
     return redirect("SITIO:carrito_index")

@@ -18,6 +18,7 @@ urlpatterns = [
     # CARRITO
     path('carrito', views.carrito_index, name="carrito_index"),
     path('carrito/agregar', views.carrito_save, name="carrito_save"),
+    path('carrito/clean', views.carrito_clean, name="carrito_clean"),
     path('item_carrito/<int:item_carrito_id>/eliminar', views.item_carrito_delete, name="item_carrito_delete"),
 
 ]

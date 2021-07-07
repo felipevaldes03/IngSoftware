@@ -26,6 +26,11 @@
                         <h4 class="card-title text-truncate">{{ producto.titulo.title.title|truncatechars:25 }}</h4>
                         <p class="card-text ">{{ producto.descripcion.capitalize|truncatechars:70 }}</p>
                         <a href="{% url 'SITIO:producto_show' producto.id %}" class="btn btn-success btn-block">Ver</a>
+                        
+                        {% if user.is_authenticated %}
+                            <a href="{% url 'SITIO:producto_edit' producto.id %}" class="btn btn-dark btn-block">Editar</a>
+                        {% endif %}
+
                     </div>
                 </div>
             </div>
@@ -54,6 +59,11 @@
                             <h4 class="card-title">{{ producto.titulo.title|truncatechars:28 }}</h4>
                             <p class="card-text ">{{ producto.descripcion.capitalize|truncatechars:50 }}</p>
                             <a href="{% url 'SITIO:producto_show' producto.id %}" class="btn btn-success btn-block">Ver</a>
+
+                            {% if user.is_authenticated %}
+                                <a href="{% url 'SITIO:producto_edit' producto.id %}" class="btn btn-dark btn-block">Editar</a>
+                            {% endif %}
+
                         </div>
                     </div>
                 </div>
