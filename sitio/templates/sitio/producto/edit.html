@@ -1,12 +1,20 @@
 {% extends 'sitio/layout.html' %}
 
 {% block content %}
-<section class="row mt-5 container mx-auto">
+<section class="row my-5 container mx-auto">
 
     <!-- MENSAGE DE ERROR -->
     {% if error_message %}
-        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <div class="alert alert-danger alert-dismissible fade show col-12" role="alert">
             <strong>{{ error_message }}</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    {% endif %}
+    {% if okey_message %}
+        <div class="alert alert-danger alert-dismissible fade show col-12" role="alert">
+            <strong>{{ okey_message }}</strong>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -15,17 +23,17 @@
 
     <!-- TITULO -->
     <div class="col-12">
-        <h2 class="display-4 text-center mb-5">Agregar producto</h2>
+        <h2 class="display-4 text-center mb-5">Editar producto</h2>
     </div>
 
     <!-- FORMULARIO -->
-    <form action="{% url 'SITIO:producto_edit' %}" method="post" enctype="multipart/form-data" class="w-100 col-12">
+    <form action="" method="post" enctype="multipart/form-data" class="w-100 col-12">
 
         {% csrf_token %}
 
         <!-- NOMBRE PRODUCTO -->
         <div class="col-12 p-0 form-group">
-            <input class="form-control" type="text" name="titulo" placeholder="Ingrese el nombre del producto..." required>
+            <input class="form-control" type="text" name="titulo" placeholder="Ingrese el nombre del producto..." value="{{producto.titulo.title}}" required>
         </div>
 
         <div class="row container mx-auto p-0 pt-3">
@@ -53,7 +61,7 @@
 
                 <!-- DESCRIPCION -->
                 <div class="col-12 p-0 form-group mb-3">
-                    <textarea class="form-control" name="descripcion" rows="3" required></textarea>
+                    <textarea class="form-control" name="descripcion" rows="3" required>{{producto.descripcion.capitalize}}</textarea>
                 </div>
 
                 <div class="col-12 ">
@@ -64,13 +72,13 @@
                                 <div class="input-group-prepend">
                                     <div class="input-group-text">Precio: $</div>
                                 </div>
-                                <input type="number" class="form-control" name="precio" placeholder="XXXX.XX" required>
+                                <input type="number" class="form-control" name="precio" placeholder="XXXX.XX" value="{{ producto.precio|floatformat }}" required>
                             </div>
                         </div>
 
                         <!-- BOTON -->
                         <div class="form-group col-md-4 col-lg-3 m-0 p-0 mt-2 mt-lg-0">
-                            <button type="submit" class="btn btn-success btn-block">Agregar</button>
+                            <button type="submit" class="btn btn-success btn-block">Editar</button>
                         </div>
                     </div>
                 </div>

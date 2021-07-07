@@ -3,18 +3,18 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 class Categoria(models.Model):
-    descripcion = models.CharField(max_length=60, null=False)
+    descripcion = models.CharField(max_length=200, null=False)
 
     def __str__(self) -> str:
         return f"Id: {self.pk} | Descripcion: {self.descripcion}"
 
 
 class Producto(models.Model):
-    titulo = models.CharField(max_length=30, null=False)
+    titulo = models.CharField(max_length=50, null=False)
     # Imagen
     imagen = models.FileField(upload_to='imagenes/productos/')
-    descripcion = models.CharField(max_length=100, null=False)
-    precio = models.DecimalField(null=False, max_digits=8, decimal_places=2)
+    descripcion = models.CharField(max_length=200, null=False)
+    precio = models.DecimalField(null=False, max_digits=10, decimal_places=2)
     # FK
     categoria = models.ForeignKey(Categoria,on_delete=models.CASCADE, related_name="productos")
 

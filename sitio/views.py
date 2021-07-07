@@ -5,6 +5,23 @@ from django.urls import reverse
 from django.http.response import HttpResponse, HttpResponseRedirect
 
 from sitio.models import *
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib import messages
+""" 
+    REGISTRO DE USUARIO
+"""
+def register(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data['username']
+            messages.success(request, f"El usuario ha sido registrado exitosamente!")
+            return redirect('SITIO:producto_index')
+        else:
+            messages.success(request, "No se pudo registrar el usuario, vuelva a intenarlo!")
+
+    return render(request, 'sitio/register.html')
 
 """ 
     PRODUCTOS
@@ -25,9 +42,9 @@ def producto_create(request):
         categoria_del_producto = Categoria.objects.get(id=request.POST["categoria"])
         form = FormProducto(request.POST, request.FILES, instance=Producto(imagen=request.FILES['imagen'], categoria=categoria_del_producto))   
         if form.is_valid():
-            #return HttpResponse('Los campos fueron validados y aceptados!!! ' + str(categoria_del_producto))
             form.save()
             return redirect("SITIO:producto_index")
+            #return HttpResponse('Los campos fueron validados y aceptados!!! ' + str(categoria_del_producto))
         else:
             return render(request, 'sitio/producto/create.html', {
                 'categorias' : categorias,
@@ -47,10 +64,36 @@ def producto_show(request, producto_id):
     })
 
 def producto_edit(request, producto_id):
-    return HttpResponse('Editar Producto con id: ' + str(producto_id))
+    categorias = Categoria.objects.all()
+    producto = Producto.objects.get(id=producto_id)
+
+    if request.method == "POST":
+        categoria_del_producto = Categoria.objects.get(id=request.POST["categoria"])
+        form = FormProducto(request.POST, request.FILES, instance=Producto(imagen=request.FILES['imagen'], categoria=categoria_del_producto))   
+        if form.is_valid():
+            producto.titulo = request.POST['titulo']
+            producto.categoria = categoria_del_producto
+            producto.descripcion = request.POST['descripcion']
+            producto.imagen = request.FILES['imagen']
+            producto.precio = request.POST['precio']
+            producto.save()
+            return redirect("SITIO:producto_index")
+        else:
+            return render(request, 'sitio/producto/edit.html', {
+                'categorias' : categorias,
+                'error_message' : 'Ingreso un campo incorrecto, vuelva a intentar'
+            })
+    else:
+        return render(request, 'sitio/producto/edit.html',{
+            'categorias' : categorias,
+            'producto' : producto
+        })
 
 def producto_delete(request, producto_id):
-    return HttpResponse('Eliminar Producto con id: ' + str(producto_id))
+    producto = Producto.objects.get(id=producto_id)
+    producto.delete()
+    return redirect('SITIO:producto_index')
+    #return HttpResponse(f'Eliminar producto_id: {producto.id}')
 
 def producto_search(request):
     texto_de_busqueda = request.GET["texto"]
@@ -87,6 +130,13 @@ def carrito_index(request):
     categorias = Categoria.objects.all()
     usuario_logeado = User.objects.get(username=request.user)
     productos = Carrito.objects.get(usuario=usuario_logeado.id).items.all()
+
+    carrito = Carrito.objects.get(usuario=usuario_logeado.id)
+    nuevo_precio_Carrito = 0
+    for item in carrito.items.all():
+        nuevo_precio_Carrito += item.producto.precio
+    carrito.total = nuevo_precio_Carrito
+    carrito.save()
 
     return render(request, 'sitio/carrito/index.html', {
         'categorias' : categorias,
@@ -160,3 +210,5 @@ def acerca_de(request):
     return render(request, 'sitio/paginas/acerca_de.html',{
         'categorias' : Categoria.objects.all(),
     })
+
+

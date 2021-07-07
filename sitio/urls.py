@@ -3,8 +3,12 @@ from . import views
 
 app_name = "SITIO"
 urlpatterns = [
+    # REGISTRAR USUARIO
+    path('registrarse/', views.register, name="register"),
+
+
     # ACERCA DE
-    path('acercaDe/', views.acerca_de, name="acerca_de"),
+    path('acercaDe', views.acerca_de, name="acerca_de"),
     
     # PRODUCTOS
     path('', views.producto_index, name="producto_index"),
