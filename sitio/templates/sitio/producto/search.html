@@ -39,10 +39,12 @@
                         <h4 class="card-title">{{ producto.titulo.title|truncatechars:30 }}</h4>
                         <p class="card-text ">{{ producto.descripcion.capitalize|truncatechars:50 }}</p>
                         <a href="{% url 'SITIO:producto_show' producto.id %}" class="btn btn-success btn-block">Ver</a>
-                        {% if user.is_authenticated %}
+
+                        {% if user.is_superuser %}
                             <a href="{% url 'SITIO:producto_edit' producto.id %}" class="btn btn-outline-secondary btn-block">Editar</a>
                             <a href="{% url 'SITIO:producto_delete' producto.id %}" class="btn btn-outline-danger btn-block">Eliminar</a>
                         {% endif %}
+                        
                     </div>
                 </div>
             </div>

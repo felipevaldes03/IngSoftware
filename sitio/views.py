@@ -2,7 +2,7 @@ from django.contrib.auth.models import User
 from sitio.forms import FormProducto
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
-from django.http.response import HttpResponse, HttpResponseRedirect
+from django.http.response import HttpResponse
 
 from sitio.models import *
 from django.contrib.auth.forms import UserCreationForm
@@ -15,8 +15,13 @@ def register(request):
         form = UserCreationForm(request.POST)
         if form.is_valid():
             form.save()
-            username = form.cleaned_data['username']
+            usuario_logeado = User.objects.last()
+            #username = form.cleaned_data['username']
             messages.success(request, f"El usuario ha sido registrado exitosamente!")
+            carrito = Carrito()
+            carrito.usuario = usuario_logeado
+            carrito.total = 0
+            carrito.save()
             return redirect('SITIO:producto_index')
         else:
             messages.success(request, "No se pudo registrar el usuario, vuelva a intenarlo!")
@@ -153,14 +158,6 @@ def carrito_save(request):
         producto = Producto.objects.get(id=request.POST['producto_id'])
         usuario_logeado = User.objects.get(username=request.user)
 
-        # ESTO PUEDE IR EN EL REGISTRO DEL USUARIO
-        # Si el usuario no tiene carrito lo creo
-        if Carrito.objects.filter(usuario=usuario_logeado.id).count() == 0:
-            carrito = Carrito()
-            carrito.usuario = usuario_logeado
-            carrito.total = 0
-            carrito.save()
-
         # Agrego producto al carrito
         carrito = Carrito.objects.get(usuario=usuario_logeado.id)
         item_carrito = Carrito_item()
@@ -171,7 +168,7 @@ def carrito_save(request):
         # Sumo el precio del producto al carrito
         carrito.total = producto.precio + carrito.total
         carrito.save()
-
+        messages.success(request, f"El producto {producto.titulo} fue agregado al carrito")
         #return HttpResponse(f"{usuario_logeado.id} | ITEM_CARRITO: {item_carrito} | CARRITO: {carrito}")
         return redirect("SITIO:producto_index")
 

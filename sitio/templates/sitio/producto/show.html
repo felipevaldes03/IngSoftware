@@ -34,7 +34,11 @@
                     <form action="{% url 'SITIO:carrito_save' %}" method="POST">
                         {% csrf_token %}
                         <input type="hidden" name="producto_id" value="{{ producto.id }}">
-                        <button type="submit" class="btn btn-success">Agregar al carrito</button>
+                        {% if user.is_superuser or not user.is_authenticated %}
+                            <button type="submit" class="btn btn-success" disabled>Agregar al carrito</button>
+                        {% else %}
+                            <button type="submit" class="btn btn-success">Agregar al carrito</button>
+                        {% endif %}
                     </form>
                 </div>
             </div>
