@@ -23,9 +23,16 @@ class Producto(models.Model):
 
 
 class Carrito(models.Model):
-    usuario = models.ForeignKey(User, on_delete=models.CASCADE, related_name="carritos")
-    productos = models.ManyToManyField(Producto, related_name='carritos')
-    precio_total = models.FloatField(null=False)
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE, related_name="carrito")
+    total = models.DecimalField(null=False, max_digits=10, decimal_places=2)
 
     def __str__(self) -> str:
-        return f"Id: {self.pk} | Usuario_id: {self.usuario.id} | Productos: {self.productos}"
+        return f"Id: {self.pk} | Usuario_id: {self.usuario.id} | Usuario: {self.usuario.username} | Total: {self.total}"
+
+
+class Carrito_item(models.Model):
+    producto = models.ForeignKey(Producto, on_delete=models.CASCADE) 
+    carrito = models.ForeignKey(Carrito, on_delete=models.CASCADE, related_name="items")
+
+    def __str__(self) -> str:
+        return f"Id: {self.pk} | Producto: {self.producto.titulo} | Carrito_id: {self.carrito.id}"

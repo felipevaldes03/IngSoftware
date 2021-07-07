@@ -1,9 +1,10 @@
+from django.contrib.auth.models import User
 from sitio.forms import FormProducto
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.http.response import HttpResponse, HttpResponseRedirect
 
-from sitio.models import Categoria, Producto
+from sitio.models import *
 
 """ 
     PRODUCTOS
@@ -38,7 +39,7 @@ def producto_create(request):
         })
 
 def producto_show(request, producto_id):
-    producto = Producto.objects.get(id=producto_id)
+    producto =  get_object_or_404(Producto, id=producto_id)
 
     return render(request, 'sitio/producto/show.html',{
         'categorias' : Categoria.objects.all(),
@@ -66,7 +67,9 @@ def producto_search(request):
     })
 
 def productos_por_categoria(request, categoria_id):
-    categoria = Categoria.objects.get(id=categoria_id)
+    
+    #categoria = Categoria.objects.get(id=categoria_id)
+    categoria = get_object_or_404(Categoria, id = categoria_id)
     productos = categoria.productos.all()
     return render(request, 'sitio/producto/search.html',
     {
@@ -78,6 +81,65 @@ def productos_por_categoria(request, categoria_id):
     })
 
 """ 
+    CARRITO
+"""
+def carrito_index(request):
+    categorias = Categoria.objects.all()
+    usuario_logeado = User.objects.get(username=request.user)
+    productos = Carrito.objects.get(usuario=usuario_logeado.id).items.all()
+
+    return render(request, 'sitio/carrito/index.html', {
+        'categorias' : categorias,
+        'usuario' : usuario_logeado,
+        'items_carrito' : productos
+    })
+
+def carrito_save(request):
+    #tieneCarrito = Carrito.objects.filter(usuario=8).count()
+    # Devuelve un 404 si no encuentra el carrito
+    #arrito = get_object_or_404(Carrito, usuario=usuario_logeado.id)
+
+    if request.method == 'POST':
+        producto = Producto.objects.get(id=request.POST['producto_id'])
+        usuario_logeado = User.objects.get(username=request.user)
+
+        # ESTO PUEDE IR EN EL REGISTRO DEL USUARIO
+        # Si el usuario no tiene carrito lo creo
+        if Carrito.objects.filter(usuario=usuario_logeado.id).count() == 0:
+            carrito = Carrito()
+            carrito.usuario = usuario_logeado
+            carrito.total = 0
+            carrito.save()
+
+        # Agrego producto al carrito
+        carrito = Carrito.objects.get(usuario=usuario_logeado.id)
+        item_carrito = Carrito_item()
+        item_carrito.carrito = carrito
+        item_carrito.producto = producto
+        item_carrito.save()
+
+        # Sumo el precio del producto al carrito
+        carrito.total = producto.precio + carrito.total
+        carrito.save()
+
+        #return HttpResponse(f"{usuario_logeado.id} | ITEM_CARRITO: {item_carrito} | CARRITO: {carrito}")
+        return redirect("SITIO:producto_index")
+
+    else:
+        return redirect("SITIO:producto_index")
+
+def item_carrito_delete(request, item_carrito_id):
+    item_carrito = Carrito_item.objects.get(id=item_carrito_id)
+    carrito = item_carrito.carrito
+    precio_item = item_carrito.producto.precio
+    
+    carrito.total = carrito.total - precio_item
+    item_carrito.delete()
+    carrito.save()
+    return redirect("SITIO:carrito_index")
+    #return HttpResponse(f'Carrito_id: {carrito.id} Total: {carrito.total} | Item_carrito: {item_carrito} | Precio: {precio_item}')
+
+"""
     PAGINAS
 """
 def acerca_de(request):
