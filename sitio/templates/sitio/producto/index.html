@@ -26,11 +26,11 @@
             <div class="col-12 col-sm-6 col-md-4 mb-3">
                 <div class="card card-img-3-producto-home">
                     <div class=" h-100 ">
-                        <!-- { { producto.imagen } } -->
+                        <!-- src="https://picsum.photos/200/200?random={{ forloop.counter }}" -->
                         <img 
                         class="card-img-top mx-auto"
-                        src="https://picsum.photos/200/200?random={{ forloop.counter }}"
-                        alt="ultimo producto 1"
+                        src="{{MEDIA_URL}}{{producto.imagen.url}}"
+                        alt="{{producto.titulo}}"
                         >
                     </div>
                     <div class="card-body card-body-3-productos-home">
@@ -62,9 +62,11 @@
             {% for producto in productos %}
                 <div class="col-6 col-md-3 mb-4">
                     <div class="card h-100 card-img-producto-home">
+                        <!-- src="https://picsum.photos/200/200?random={{ forloop.counter }}" -->
                         <img 
                         class="card-img-top mx-auto"
-                        src="https://picsum.photos/200/200?random={{ forloop.counter }}"
+                        
+                        src="{{MEDIA_URL}}{{producto.imagen.url}}"
                         alt="ultimo producto 1"
                         >
                         <div class="card-body text-center">

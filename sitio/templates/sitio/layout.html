@@ -4,7 +4,7 @@
 <html lang="es">
 
 <head>
-    <title>Cliente</title>
+    <title>Tienda | JAGUARETE KAA</title>
 
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -13,6 +13,9 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/deecb3ce02.js" crossorigin="anonymous"></script>
 
     <!-- Mis estilos CSS -->
     <link rel="stylesheet" href="{% static 'sitio/style.css' %}">
@@ -31,8 +34,8 @@
             <div class="ml-auto d-flex">
                 {% if user.is_authenticated %}
                 <!-- Estas conectado como: { { user.get_username } }  -->
-                <a role="button" class="btn btn-secondary mr-3" href="{% url 'logout'%}?next=/">
-                    Salir
+                <a role="button" class="btn btn-secondary mr-3" title="Salir" href="{% url 'logout'%}?next=/">
+                    <i class="fas fa-sign-out-alt"></i>
                 </a>
                 {% else %}
                 <a role="button" class="btn btn-primary mr-3" href="{% url 'login'%}?next={{request.path}}">
@@ -45,11 +48,11 @@
                 
                 {% if user.is_superuser or not user.is_authenticated %}
                     <button role="button" class="btn btn-success mr-3" disabled>
-                        Carrito
+                        <i class="fas fa-shopping-cart"></i>
                     </button>
                 {% else %}
                     <a role="button" class="btn btn-success mr-3" href="{% url 'SITIO:carrito_index' %}">
-                        Carrito
+                        <i class="fas fa-shopping-cart"></i>
                     </a>
                 {% endif %}
             </div>
@@ -116,10 +119,10 @@
 
     <!-- FOOTER -->
     <footer class="bg-light p-3 border-top">
-        <div class="d-flex container justify-content-center">
-            <p class="p-0 m-0">NombreDeLaEmpresa</p>
-            <p class="p-0 m-0 mx-5">Copyright</p>
-            <p class="p-0 m-0"> | Saul Zarate</p>
+        <div class="container">
+            <p class="p-0 m-0 mb-2 logo-empresa-footer">JAGUARETE KAA | Derechos reservados &reg;</p>
+            <p class="p-0 m-0 mx-5 text-secondary">Desarrollado por Saul Zarate</p>
+            <!-- <p class="p-0 m-0"> </p> -->
         </div>
     </footer>
 
